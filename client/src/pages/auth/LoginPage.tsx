@@ -6,6 +6,7 @@ import { useLoginMutation } from '../../redux/features/authApi';
 import { useAppDispatch } from '../../redux/hooks';
 import { loginUser } from '../../redux/services/authSlice';
 import decodeToken from '../../utils/decodeToken';
+import logo from '../../assets/login.png';
 
 const LoginPage = () => {
   const [userLogin] = useLoginMutation();
@@ -29,6 +30,7 @@ const LoginPage = () => {
 
       if (res.statusCode === 200) {
         const user = decodeToken(res.data.token);
+        localStorage.setItem('access_token', res.data.token);
         dispatch(loginUser({ token: res.data.token, user }));
         navigate('/');
         toast.success('Successfully Login!', { id: toastId });
@@ -42,7 +44,14 @@ const LoginPage = () => {
   // if (isLoading) <Loader />;
   // else
   return (
-    <Flex justify='center' align='center' style={{ height: '100vh' }}>
+    <Flex justify='center' align='center' style={{ height: '100vh', flexDirection: 'column' }}>
+      {/* Logo and Text Section */}
+      <Flex vertical align='center' style={{ marginBottom: '1rem' }}>
+        <img src={logo} alt='Company Logo' style={{ height: '80px', marginBottom: '0.5rem' }} />
+        <h2 style={{ margin: 0, fontSize: '20px', color: '#164863', textTransform: 'uppercase' }}>
+          Shree Madhura Foams
+        </h2>
+      </Flex>
       <Flex
         vertical
         style={{
@@ -59,7 +68,7 @@ const LoginPage = () => {
           <input
             type='text'
             {...register('email', { required: true })}
-            placeholder='Your Name*'
+            placeholder='Your Email*'
             className={`input-field ${errors['email'] ? 'input-field-error' : ''}`}
           />
           <input
