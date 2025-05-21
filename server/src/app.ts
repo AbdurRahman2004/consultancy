@@ -10,7 +10,7 @@ const app: Application = express();
 app.use(express.json());
 app.use(morgan('dev'));
 
-app.use(cors({ origin: ['http://localhost:5173', 'https://sreemadhurafoams-git-main-abdur-rahmans-projects-2d1612ea.vercel.app'] }));
+app.use(cors({ origin: ['http://localhost:5173', 'https://sreemadhurafoams-git-main-abdur-rahmans-projects-2d1612ea.vercel.app','https://sreemadhurafoams.vercel.app'] }));
 
 // application routes
 app.use('/api/v1', rootRouter);
